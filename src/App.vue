@@ -25,7 +25,7 @@ export default {
   },
   methods: {
     deleteCandidate(id) {
-      console.log(id);
+      this.candidates = this.candidates.filter((candidate) => candidate.id !== id);
     }
   },
   created() {
