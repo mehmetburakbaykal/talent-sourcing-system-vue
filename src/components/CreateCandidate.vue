@@ -1,12 +1,24 @@
 <template>
     <button @click="toggleModal" class="create-btn"><i class="fa-solid fa-plus fa-xl"></i></button>
+    <Modal :toggleModal="toggleModal" :modalActive="modalActive" :candidates="candidates" />
+
 </template>
 
 <script>
+import Modal from "./Modal.vue"
+
 export default {
     name: "CreateCandidate",
-    props: ["toggleModal"]
+    components: {
+        Modal,
+    },
+    props: {
+        modalActive: Boolean,
+        toggleModal: Function,
+        candidates: Array
+    }
 }
+
 </script>
 
 <style>

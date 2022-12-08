@@ -8,7 +8,7 @@
                     </h3>
                     <div class="btn-container">
                         <button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
-                        <button class="delete-btn"><i class="fa-solid fa-xmark"></i></button>
+                        <button @click="onDelete(candidate.id)" class="delete-btn"><i class="fa-solid fa-trash"></i></button>
                     </div>
                 </div>
                 <hr />
@@ -21,6 +21,7 @@
             </li>
         </ul>
     </div>
+
 </template>
 
 <script>
@@ -29,6 +30,12 @@ export default {
     props: {
         candidate: Object,
         candidates: Array
+    },
+    methods: {
+        onDelete(id) {
+            this.$emit('delete-candidate', id)
+            console.log(id);
+        }
     }
 }
 </script>
@@ -61,5 +68,31 @@ export default {
 .wrapper {
     display: flex;
     justify-content: space-between;
+}
+
+.btn-container {
+    width: 2.2vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.edit-btn {
+    background-color: rgb(211, 214, 219);
+    cursor: pointer;
+    border: none;
+}
+
+.delete-btn {
+    background-color: rgb(211, 214, 219);
+    border: none;
+    cursor: pointer;
+}
+
+.fa-trash {
+    color: rgb(204, 13, 13);
+}
+
+li button i {
+    color: black;
 }
 </style>

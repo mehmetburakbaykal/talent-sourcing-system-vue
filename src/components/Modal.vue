@@ -49,7 +49,8 @@ export default {
     name: "Modal",
     props: {
         modalActive: Boolean,
-        toggleModal: Function
+        toggleModal: Function,
+        candidates: Array
     }
 }
 </script>

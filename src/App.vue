@@ -1,15 +1,13 @@
 <template>
   <Header />
-  <CreateCandidate :toggleModal="toggleModal" />
-  <ListCandidates :candidates="candidates" />
-  <Modal :toggleModal="toggleModal" :modalActive="modalActive" />
+  <CreateCandidate :modalActive="modalActive" :toggleModal="toggleModal" :candidates="candidates" />
+  <ListCandidates @delete-candidate="deleteCandidate" :candidates="candidates" />
 </template>
 
 <script>
 import Header from "./components/Header.vue"
 import CreateCandidate from "./components/CreateCandidate.vue"
 import ListCandidates from "./components/ListCandidates.vue"
-import Modal from "./components/Modal.vue"
 import { ref } from "vue"
 
 
@@ -19,31 +17,43 @@ export default {
     Header,
     CreateCandidate,
     ListCandidates,
-    Modal
   },
   data() {
     return {
       candidates: [],
     }
   },
+  methods: {
+    deleteCandidate(id) {
+      console.log(id);
+    }
+  },
   created() {
     this.candidates = [
       {
-      id: 1,
-      fullName: 'Mehmet Burak Baykal',
-      phone: '05066920750',
-      mail: 'burak@gmail.com',
-      interactions: 'Interviewing',
-      status: 'Called'
-    },
-  {
-    id: 1,
-      fullName: 'Test Test',
-      phone: '053256598',
-      mail: 'test@gmail.com',
-      interactions: 'Hiring',
-      status: 'Mail sent'
-  }]
+        id: 1,
+        fullName: 'Mehmet Burak Baykal',
+        phone: '05066920750',
+        mail: 'burak@gmail.com',
+        interactions: 'Interviewing',
+        status: 'Called'
+      },
+      {
+        id: 2,
+        fullName: 'Test Test',
+        phone: '053256598',
+        mail: 'test2@gmail.com',
+        interactions: 'Hiring',
+        status: 'Mail sent'
+      },
+      {
+        id: 3,
+        fullName: 'Test 3 Test 3',
+        phone: '053256598',
+        mail: 'test3@gmail.com',
+        interactions: 'Hiring',
+        status: 'Mail sent'
+      }]
   },
 
   setup() {
