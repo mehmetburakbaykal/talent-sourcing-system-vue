@@ -8,19 +8,19 @@
             <ul class="modal-inputs">
                 <li class="inputs">
                     <label for="name">Name-Surname: </label>
-                    <input type="text" name="fullName" value="">
+                    <input type="text" v-model="fullName" name="fullName">
                 </li>
                 <li class="inputs">
                     <label for="name">Phone Number: </label>
-                    <input type="text" name="phone" value="">
+                    <input type="text" v-model="phone" name="phone">
                 </li>
                 <li class="inputs">
                     <label for="name">E-mail Address: </label>
-                    <input type="text" name="mail" value="">
+                    <input type="text" v-model="mail" name="mail">
                 </li>
                 <li class="inputs">
                     <label for="name">Previous Interactions: </label>
-                    <select name="interactions" id="interactions" value="">
+                    <select name="interactions" v-model="interactions" id="interactions">
                         <option value="None"></option>
                         <option value="Called">Called</option>
                         <option value="Mail sent">Mail sent</option>
@@ -28,7 +28,7 @@
                 </li>
                 <li class="inputs">
                     <label for="name">Candidate Status: </label>
-                    <select name="status" id="status" value="">
+                    <select name="status" v-model="status" id="status">
                         <option value="None"></option>
                         <option value="Sourced">Sourced</option>
                         <option value="Interviewing">Interviewing</option>
@@ -37,7 +37,7 @@
                     </select>
                 </li>
                 <li className="submit-btn">
-                    <input type="submit" name="submit" value="Submit" />
+                    <input @click="onSubmit" type="submit" name="submit" value="Submit"/>
                 </li>
             </ul>
         </div>
@@ -51,6 +51,50 @@ export default {
         modalActive: Boolean,
         toggleModal: Function,
         candidates: Array
+    },
+    data() {
+        return {
+            fullName: '',
+            phone: '',
+            mail: '',
+            interactions: '',
+            status: ''
+        }
+    },
+    methods: {
+        onSubmit(e) {
+            e.preventDefault();
+
+            if (!this.fullName) {
+                alert('Please add a name-surname');
+                return;
+            } else if (!this.phone) {
+                alert('Please add a phone number');
+                return;
+            } else if (!this.mail) {
+                alert('Please add a mail address');
+                return;
+            }
+
+            const newCandidate = {
+                id: Math.floor(Math.random * 10000),
+                fullName: this.fullName,
+                phone: this.phone,
+                mail: this.mail,
+                interactions: this.interactions,
+                status: this.status
+            }
+
+            this.$emit('add-candidate', newCandidate);
+
+            this.toggleModal();
+
+            this.fullName = '';
+            this.phone = '';
+            this.mail = '';
+            this.interactions = '';
+            this.status = '';
+        }
     }
 }
 </script>

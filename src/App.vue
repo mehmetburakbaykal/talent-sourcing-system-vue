@@ -1,13 +1,16 @@
 <template>
   <Header />
   <CreateCandidate :modalActive="modalActive" :toggleModal="toggleModal" :candidates="candidates" />
-  <ListCandidates @delete-candidate="deleteCandidate" :candidates="candidates" />
+  <Modal @add-candidate="addCandidate" :toggleModal="toggleModal" :modalActive="modalActive" :candidates="candidates" />
+  <ListCandidates @edit-candidate="editCandidate" @delete-candidate="deleteCandidate" :candidates="candidates"
+    :toggleModal="toggleModal" :modalActive="modalActive" />
 </template>
 
 <script>
 import Header from "./components/Header.vue"
 import CreateCandidate from "./components/CreateCandidate.vue"
 import ListCandidates from "./components/ListCandidates.vue"
+import Modal from "./components/Modal.vue"
 import { ref } from "vue"
 
 
@@ -16,7 +19,8 @@ export default {
   components: {
     Header,
     CreateCandidate,
-    ListCandidates,
+    ListCandidates, Modal,
+
   },
   data() {
     return {
@@ -24,6 +28,14 @@ export default {
     }
   },
   methods: {
+    addCandidate(candidate) {
+      this.candidates = [...this.candidates, candidate]
+    },
+
+    editCandidate(id) {
+      console.log(id);
+    },
+
     deleteCandidate(id) {
       this.candidates = this.candidates.filter((candidate) => candidate.id !== id);
     }

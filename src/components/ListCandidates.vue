@@ -7,7 +7,8 @@
                         {{ candidate.fullName }}
                     </h3>
                     <div class="btn-container">
-                        <button class="edit-btn"><i class="fa-solid fa-pen-to-square"></i></button>
+                        <button @click="onEdit(candidate.id)" class="edit-btn"><i
+                                class="fa-solid fa-pen-to-square"></i></button>
                         <button @click="onDelete(candidate.id)" class="delete-btn"><i
                                 class="fa-solid fa-trash"></i></button>
                     </div>
@@ -29,11 +30,17 @@
 export default {
     name: "ListCandidates",
     props: {
+        modalActive: Boolean,
+        toggleModal: Function,
         candidates: Array,
         candidate: Object
     }, methods: {
         onDelete(id) {
             this.$emit('delete-candidate', id)
+        },
+
+        onEdit(id) {
+            this.$emit('edit-candidate', id)
         }
     }
 }
