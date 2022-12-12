@@ -37,7 +37,7 @@
                     </select>
                 </li>
                 <li className="submit-btn">
-                    <input @click="onSubmit" type="submit" name="submit" value="Submit"/>
+                    <input @click="onSubmit" type="submit" name="submit" value="Submit" />
                 </li>
             </ul>
         </div>
@@ -50,7 +50,7 @@ export default {
     props: {
         modalActive: Boolean,
         toggleModal: Function,
-        candidates: Array
+        candidates: Array,
     },
     data() {
         return {
@@ -77,7 +77,7 @@ export default {
             }
 
             const newCandidate = {
-                id: Math.floor(Math.random * 10000),
+                // id: Math.floor(Math.random * 10000),
                 fullName: this.fullName,
                 phone: this.phone,
                 mail: this.mail,

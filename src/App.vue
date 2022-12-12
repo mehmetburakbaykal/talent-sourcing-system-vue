@@ -25,47 +25,60 @@ export default {
   data() {
     return {
       candidates: [],
+      candidate: {
+        fullName: '',
+        phone: '',
+        mail: '',
+        interactions: '',
+        status: ''
+      }
     }
   },
   methods: {
-    addCandidate(candidate) {
-      this.candidates = [...this.candidates, candidate]
+    async addCandidate(candidate) {
+      const res = await fetch('http://localhost:5000/candidates', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json',
+        },
+        body: JSON.stringify(candidate)
+      });
+
+      const data = await res.json();
+
+      this.candidates = [...this.candidates, data]
     },
 
     editCandidate(id) {
       console.log(id);
     },
 
-    deleteCandidate(id) {
-      this.candidates = this.candidates.filter((candidate) => candidate.id !== id);
-    }
-  },
-  created() {
-    this.candidates = [
-      {
-        id: 1,
-        fullName: 'Mehmet Burak Baykal',
-        phone: '05066920750',
-        mail: 'burak@gmail.com',
-        interactions: 'Interviewing',
-        status: 'Called'
-      },
-      {
-        id: 2,
-        fullName: 'Test Test',
-        phone: '053256598',
-        mail: 'test2@gmail.com',
-        interactions: 'Hiring',
-        status: 'Mail sent'
-      },
-      {
-        id: 3,
-        fullName: 'Test 3 Test 3',
-        phone: '053256598',
-        mail: 'test3@gmail.com',
-        interactions: 'Hiring',
-        status: 'Mail sent'
-      }]
+    async deleteCandidate(id) {
+      if (confirm('Are you sure?')) {
+        const res = await fetch(`http://localhost:5000/candidates/${id}`, {
+          method: 'DELETE',
+        })
+
+        res.status === 200 ? (this.candidates = this.candidates.filter((candidate) => candidate.id !== id)
+        ) : alert('Error deleting candidate')
+
+      }
+    },
+
+    async fetchCandidates() {
+      const res = await fetch('http://localhost:5000/candidates');
+
+      const data = await res.json();
+
+      return data;
+    },
+    async fetchCandidate(id) {
+      const res = await fetch(`http://localhost:5000/candidates/${id}`);
+
+      const data = await res.json();
+
+      return data;
+    },
   },
 
   setup() {
@@ -77,6 +90,11 @@ export default {
 
     return { modalActive, toggleModal }
   },
+
+  async created() {
+    this.candidates = await this.fetchCandidates()
+  },
+
 
 }
 </script>

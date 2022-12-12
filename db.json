@@ -1,0 +1,12 @@
+{
+  "candidates": [
+    {
+      "fullName": "Test 1",
+      "phone": "051234567",
+      "mail": "test@mail.com",
+      "interactions": "Mail sent",
+      "status": "Offer sent",
+      "id": 1
+    }
+  ]
+}
